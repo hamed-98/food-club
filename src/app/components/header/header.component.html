@@ -1,0 +1,43 @@
+<header class="flex justify-between items-center w-full bg-white/70 fixed z-10 text-black p-4 shadow-md rounded-lg mt-2">
+    <h1 class="font-Ojan text-4xl cursor-pointer" (click)="clesemenu()" routerLink="/">فود کلاب</h1>
+    <nav class="hidden text-sm items-center gap-3 child:rounded-2xl md:text-base text-slate-600 md:flex child:bg-stone-400/45">
+        <a class="p-2 hover:bg-gray-500 transition-colors hover:text-white" routerLink="/">خانه</a>
+        <a class="p-2 hover:bg-gray-500 transition-colors hover:text-white" routerLink="/menu">منو</a>
+        <a class="p-2 hover:bg-gray-500 transition-colors hover:text-white" routerLink="/orders">سفارشات</a>
+        <a class="p-2 hover:bg-gray-500 transition-colors hover:text-white" routerLink="/">درباره ما</a>
+        <a class="p-2 hover:bg-gray-500 transition-colors hover:text-white" routerLink="/">تماس با ما</a>
+    </nav>
+    <div class="flex gap-3 text-center justify-center">
+        <button
+            class="bg-red-500 text-white px-2 py-2 bn5 rounded-md hover:bg-red-600 transition-colors hidden lg:block"
+            routerLink="/orders/new" (click)="clesemenu()">سفارش دهید</button>
+        <div class="flex gap-2 pt-2 cursor-pointer" *ngIf="!isLoggedIn; else loggedIn">
+            <a class="hover:underline" (click)="clesemenu()" routerLink="/signin">ورود</a>
+            <a class="hover:underline" (click)="clesemenu()" routerLink="/signup">ثبت‌نام</a>
+        </div>
+        <div class="flex items-center">
+            <ng-template #loggedIn>
+                <button (click)="logout()" class="hover:text-red-500 transition-colors"><i
+                        class="text-2xl bi bi-box-arrow-left"></i></button>
+                <button *ngIf="isAdmin" routerLink="admin/overview" class="hover:text-red-500 transition-colors"><i
+                        class="text-2xl bi bi-person"></i></button>
+            </ng-template>
+            <a routerLink="/cart" (click)="clesemenu()"
+                class="flex gap-0.5 items-center hover:text-red-500 transition-colors">
+                <i class="text-2xl bi bi-cart"></i>
+                <span class='text-red-500'>{{cartCount}}</span>
+            </a>
+        </div>
+        <button class="md:hidden" (click)="toggleMenu()" (click)="scrollToTop()">
+            <i class="text-2xl bi bi-list"></i>
+        </button>
+    </div>
+</header>
+<nav class="nav flex flex-col text-xl pt-20 gap-5 text-white md:hidden bg-gray-400" [class.open]="menuOpen">
+    <a class="rounded-md p-2 hover:bg-gray-500 transition-colors" (click)="clesemenu()" routerLink="/">خانه</a>
+    <a class="rounded-md p-2 hover:bg-gray-500 transition-colors" (click)="clesemenu()" routerLink="/menu">منو</a>
+    <a class="rounded-md p-2 hover:bg-gray-500 transition-colors" (click)="clesemenu()" routerLink="/orders">سفارشات</a>
+    <button class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors"
+        routerLink="/orders/new" (click)="clesemenu()">سفارش دهید
+    </button>
+</nav>

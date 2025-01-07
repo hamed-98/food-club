@@ -1,0 +1,31 @@
+
+    @font-face {
+        font-family: "Vazir";
+        src: url("/assets/fonts/Vazir.ttf"), format("woff2");
+        font-display: swap;
+    }
+  
+    @font-face {
+        font-family: "VazirMedium";
+        src: url("/assets/fonts/Vazir-Medium.woff2"), format("woff2");
+        font-display: swap;
+    }
+  
+    @font-face {
+        font-family: "VazirBold";
+        src: url("/assets/fonts/Vazir-Bold.woff2"), format("woff2");
+        font-display: swap;
+    }
+  
+    @font-face {
+        font-family: "Ojan";
+        src: url("/assets/fonts/Mj_Ojan.ttf"), format("ttf");
+        font-display: swap;
+    }
+  
+    @font-face {
+        font-family: "VazirFd";
+        src: url("/assets/fonts/Vazir-Medium-FD-WOL.woff2"), format("woff2");
+        font-display: swap;
+    }
+  

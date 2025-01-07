@@ -1,0 +1,12 @@
+.bg-quill {
+    background-image: url('/assets/images/tasty-food-assortment-view.jpg'); 
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+    background-attachment: fixed; 
+  }
+  
+  .backdrop-blur-md {
+    backdrop-filter: blur(8);
+    background-color: rgba(255, 255, 255, 0.096);
+  }

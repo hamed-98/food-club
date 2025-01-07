@@ -1,0 +1,26 @@
+<div class="overflow-x-auto md:pt-24 p-5">
+    <table class="min-w-full border-collapse border border-gray-200 shadow-xl rounded-lg overflow-hidden">
+        <thead class="bg-gradient-to-r from-red-400 to-rose-600 text-white">
+            <tr>
+                <th class="py-3 px-6 border border-gray-300 text-center font-semibold">شماره سفارش</th>
+                <th class="py-3 px-6 border border-gray-300 text-center font-semibold">مجموع مبلغ</th>
+                <th class="py-3 px-6 border border-gray-300 text-center font-semibold">وضعیت</th>
+                <th class="py-3 px-6 border border-gray-300 text-center font-semibold">تاریخ</th>
+                <th class="py-3 px-6 border border-gray-300 text-center font-semibold">محصولات</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let order of userOrders" class="hover:bg-gray-100 transition duration-300 ease-in-out">
+                <td class="py-3 px-6 border border-gray-300 text-center">{{ order.id }}</td>
+                <td class="py-3 px-6 border border-gray-300 text-center">{{ order.total_price | currency:'تومان':'symbol':'1.0-0' }}</td>
+                <td class="py-3 px-6 border border-gray-300 text-center">{{ getStatusText(order.status) }}</td>
+                <td class="py-3 px-6 border border-gray-300 text-center">{{ order.created_at | date:'yyyy/MM/dd' }}</td>
+                <td class="py-3 px-6 border border-gray-300 text-center">
+                    <ul class="list-inside text-right">
+                        <li *ngFor="let product of order.products">{{ product.name }}</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,36 @@
+<table class="min-w-full border border-gray-200 shadow">
+  <thead>
+    <tr class="bg-gray-200">
+      <th class="py-2 px-4 border">#</th>
+      <th class="py-2 px-4 border">نام</th>
+      <th class="py-2 px-4 border">ایمیل</th>
+      <th class="py-2 px-4 border">نقش</th>
+      <th class="py-2 px-4 border">عملیات</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users; let i = index">
+      <td class="py-2 px-4 border">{{ i + 1 }}</td>
+      <td class="py-2 px-4 border">{{ user.name }}</td>
+      <td class="py-2 px-4 border">{{ user.email }}</td>
+      <td class="py-2 px-4 border">
+        <select 
+          [(ngModel)]="user.role" 
+          (change)="updateUserRole(user)"
+          class="border rounded p-1"
+        >
+          <option value="user">کاربر</option>
+          <option value="admin">ادمین</option>
+        </select>
+      </td>
+      <td class="py-2 px-4 border">
+        <button 
+          (click)="deleteUser(user.id)" 
+          class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+        >
+          حذف
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

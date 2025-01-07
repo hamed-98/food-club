@@ -1,0 +1,38 @@
+<div class="flex gap-3 pr-5 overflow-x-auto py-4 md:pt-20 bg-transparent bg-white text-white rounded-lg shadow mb-6" style="background-image: url('assets/images/top-vieweggplant-avocado.jpg'); background-size: cover; background-position: center;">
+  <div
+    *ngFor="let category of categories"
+    class="flex items-center px-4 py-2 mt-2 border border-white rounded-lg cursor-pointer transition-all hover:text-black hover:bg-gray-100"
+    [class.bg-gray-400]="selectedCategory === category"
+    [class.text-white]="selectedCategory === category"
+    (click)="filterByCategory(category)"
+  >
+    <span class="font-medium opacity-100">{{ category }}</span>
+  </div>
+</div>
+
+
+<div class="text-center">
+  <button
+    *ngIf="selectedCategory"
+    class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+    (click)="clearFilter()"
+  >
+    نمایش همه محصولات
+  </button>
+</div>
+
+
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-2 gap-6 mt-6"
+  *ngIf="!isLoading && filteredProducts.length > 0" data-aos="zoom-in-down">
+  <div *ngFor="let product of filteredProducts"
+    class="border border-gray-300 rounded-lg shadow-md p-1 flex flex-col gap-2 items-center bg-white card">
+    <img [src]="product.image" [alt]="product.name" class="w-full h-40 object-cover rounded-lg mb-4">
+    <h3 class="text-lg font-semibold mb-2 text-gray-700">{{ product.name }}</h3>
+    <p class="text-gray-600 text-sm mb-4">{{ product.description | slice:0:24 }}...</p>
+    <p class="text-slate-700 font-bold text-lg mb-4">قیمت: {{ product.price | currency:'تومان ':'symbol':'1.0-0' }}</p>
+    <button (click)="addToCart(product)" class="bg-rose-500 hover:bg-rose-600 text-white font-bold py-2 px-4 mb-2 rounded transition-all transform duration-200 ease-in-out">
+      افزودن به سبد خرید
+    </button>
+  </div>
+</div>

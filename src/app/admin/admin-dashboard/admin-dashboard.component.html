@@ -1,0 +1,62 @@
+<div class="flex h-screen md:pt-20">
+  <!-- Sidebar -->
+  <aside class="fixed md:static pt-20 inset-y-0 right-0 bg-gray-800 text-white w-64 transform transition-transform duration-300 ease-in-out"
+  [class.translate-x-full]="!isSidebarOpen"
+  [class.translate-x-0]="isSidebarOpen"
+  >
+    <div class="p-5 text-xl font-bold">پنل ادمین</div>
+    <nav>
+      <ul>
+        <li>
+          <a 
+            routerLink="overview" 
+            routerLinkActive="bg-gray-700"
+            class="block py-2 px-4 hover:bg-gray-700 transition duration-300 ease-in-out"
+          >
+            داشبود
+          </a>
+        </li>
+        <li>
+          <a 
+            routerLink="users" 
+            routerLinkActive="bg-gray-700"
+            class="block py-2 px-4 hover:bg-gray-700 transition duration-300 ease-in-out"
+          >
+            مدیریت کاربران
+          </a>
+        </li>
+        <li>
+          <a 
+            routerLink="products" 
+            routerLinkActive="bg-gray-700"
+            class="block py-2 px-4 hover:bg-gray-700 transition duration-300 ease-in-out"
+          >
+            مدیریت محصولات
+          </a>
+        </li>
+        <li>
+          <a 
+            routerLink="orders" 
+            routerLinkActive="bg-gray-700"
+            class="block py-2 px-4 hover:bg-gray-700 transition duration-300 ease-in-out"
+          >
+            مدیریت سفارشات
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-5 pb-3 bg-gray-100 overflow-x-scroll">
+
+    <button
+    class="fixed right-4 p-3 bg-gray-800 text-white rounded-md z-10 md:hidden"
+    (click)="toggleSidebar()"
+  >
+    ☰
+  </button>
+
+    <router-outlet></router-outlet>
+  </main>
+</div>

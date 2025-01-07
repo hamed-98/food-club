@@ -1,0 +1,198 @@
+<div class="flex flex-col md:flex-row justify-between items-center mb-4">
+  <h2 class="text-lg font-semibold mb-2 md:mb-0">مدیریت محصولات</h2>
+  <button class="bg-green-500 text-white px-4 py-2 rounded" (click)="openModal()">افزودن محصول</button>
+</div>
+
+<div *ngIf="isUploading" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-51">
+  <div class="bg-white p-6 rounded shadow-lg flex items-center">
+    <svg class="animate-spin h-6 w-6 text-blue-500 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none"
+      viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor"
+        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 2.42.895 4.63 2.372 6.291l1.628-1.5z">
+      </path>
+    </svg>
+    <span>در حال آپلود تصویر...</span>
+  </div>
+</div>
+
+<div class="overflow-auto py-6 max-h-full">
+  <table class="min-w-full border-collapse border border-gray-200 shadow-lg">
+    <thead class="bg-gray-200">
+      <tr>
+        <th class="py-3 px-2 md:px-6 border border-gray-300 text-center">ردیف</th>
+        <th class="py-3 px-2 md:px-6 border border-gray-300 text-center">تصویر</th>
+        <th class="py-3 px-2 md:px-6 border border-gray-300 text-center">نام محصول</th>
+        <th class="py-3 px-2 md:px-6 border border-gray-300 text-center">دسته‌بندی</th>
+        <th class="py-3 px-2 md:px-6 border border-gray-300 text-center">قیمت</th>
+        <th class="py-3 px-2 md:px-6 border border-gray-300 text-center">موجودی</th>
+        <th class="py-3 px-2 md:px-6 border border-gray-300 text-center">عملیات</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products; let i = index" class="hover:bg-gray-100">
+        <td class="py-3 px-2 md:px-6 border border-gray-300 text-center">{{ i + 1 }}</td>
+        <td class="py-3 px-2 md:px-6 border border-gray-300 text-center"><img [src]="product.image" alt="تصویر محصول"
+            class="w-12 h-12 object-cover"></td>
+        <td class="py-3 px-2 md:px-6 border border-gray-300 text-center">{{ product.name }}</td>
+        <td class="py-3 px-2 md:px-6 border border-gray-300 text-center">{{ product.category }}</td>
+        <td class="py-3 px-2 md:px-6 border border-gray-300 text-center">{{ product.price |
+          currency:'تومان':'symbol':'1.0-0' }}
+        </td>
+        <td class="py-3 px-2 md:px-6 border border-gray-300 text-center">
+          <span [ngClass]="product.availability ? 'text-green-500' : 'text-red-500'">
+            {{ product.availability ? 'موجود' : 'ناموجود' }}
+          </span>
+        </td>
+        <td class="py-3 px-2 md:px-6 border border-gray-300 text-center">
+          <button class="bg-blue-500 text-white px-4 py-2 rounded ml-2" (click)="editProduct(product)"><i
+              class="bi bi-pencil-square"></i></button>
+          <button class="bg-red-500 text-white px-4 py-2 rounded ml-2"
+            (click)="product.id && deleteProduct(product.id)"><i class="bi bi-trash3-fill"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<div *ngIf="isModalOpen && !isEditing"
+  class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white p-6 rounded shadow-lg w-full max-w-lg md:max-w-2xl lg:max-w-4xl max-h-96 overflow-y-auto">
+    <h3 class="text-lg font-semibold mb-4">افزودن محصول</h3>
+    <form (ngSubmit)="addProduct()" #productForm="ngForm">
+      <!-- Form Fields -->
+      <div class="mb-4">
+        <label for="name" class="block text-sm font-medium text-gray-700">نام محصول</label>
+        <input type="text" id="name" [(ngModel)]="newProduct.name" name="name" required
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm">
+      </div>
+
+      <div class="mb-4">
+        <label for="category" class="block text-sm font-medium text-gray-700">دسته‌بندی</label>
+        <input type="text" id="category" [(ngModel)]="newProduct.category" name="category" required
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm">
+      </div>
+
+      <div class="mb-4">
+        <label for="price" class="block text-sm font-medium text-gray-700">قیمت</label>
+        <input type="number" id="price" [(ngModel)]="newProduct.price" name="price" required
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm">
+      </div>
+
+      <div class="mb-4">
+        <label for="description" class="block text-sm font-medium text-gray-700">توضیحات</label>
+        <textarea id="description" [(ngModel)]="newProduct.description" name="description" required
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm"></textarea>
+      </div>
+
+      <div class="mb-4">
+        <label for="availability" class="block text-sm font-medium text-gray-700">موجودی</label>
+        <select id="availability" [(ngModel)]="newProduct.availability" name="availability" required
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm">
+          <option [value]="true">موجود</option>
+          <option [value]="false">ناموجود</option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label for="image" class="block text-sm font-medium text-gray-700">تصویر محصول</label>
+        <input type="file" id="image" (change)="onFileSelected($event)"
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm">
+      </div>
+      <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">ذخیره</button>
+      <button type="button" class="bg-gray-300 text-gray-700 px-4 py-2 rounded ml-2" (click)="closeModal()">لغو</button>
+      <div *ngIf="previewUrl" class="mt-4">
+        <p class="text-sm text-gray-500">پیش‌نمایش تصویر:</p>
+        <img [src]="previewUrl" alt="پیش‌نمایش محصول"
+          class="w-32 h-32 object-cover border border-gray-300 rounded-md" />
+      </div>
+    </form>
+
+    <div *ngIf="isUploading" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-51">
+      <div class="bg-white p-6 rounded shadow-lg flex items-center">
+        <svg class="animate-spin h-6 w-6 text-blue-500 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none"
+          viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 2.42.895 4.63 2.372 6.291l1.628-1.5z">
+          </path>
+        </svg>
+        <span>در حال آپلود تصویر...</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="isModalOpen && isEditing"
+  class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white p-6 rounded shadow-lg w-full max-w-lg max-h-96 overflow-y-auto">
+    <h3 class="text-lg font-semibold mb-4">ویرایش محصول</h3>
+    <form (ngSubmit)="saveChanges()" #productForm="ngForm">
+      <!-- Form Fields -->
+      <div class="mb-4">
+        <label for="name" class="block text-sm font-medium text-gray-700">نام محصول</label>
+        <input type="text" id="name" [(ngModel)]="newProduct.name" name="name" required
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm">
+      </div>
+
+      <div class="mb-4">
+        <label for="category" class="block text-sm font-medium text-gray-700">دسته‌بندی</label>
+        <input type="text" id="category" [(ngModel)]="newProduct.category" name="category" required
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm">
+      </div>
+
+      <div class="mb-4">
+        <label for="price" class="block text-sm font-medium text-gray-700">قیمت</label>
+        <input type="number" id="price" [(ngModel)]="newProduct.price" name="price" required
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm">
+      </div>
+
+      <div class="mb-4">
+        <label for="description" class="block text-sm font-medium text-gray-700">توضیحات</label>
+        <textarea id="description" [(ngModel)]="newProduct.description" name="description" required
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm"></textarea>
+      </div>
+
+      <div class="mb-4">
+        <label for="availability" class="block text-sm font-medium text-gray-700">موجودی</label>
+        <select id="availability" [(ngModel)]="newProduct.availability" name="availability" required
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm">
+          <option [value]="true">موجود</option>
+          <option [value]="false">ناموجود</option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label for="image" class="block text-sm font-medium text-gray-700">تصویر محصول</label>
+        <input type="file" id="image" (change)="onFileSelected($event)"
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm">
+      </div>
+      <div class="flex">
+        <div class="pt-6">
+          <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">ذخیره تغییرات</button>
+          <button type="button" class="bg-gray-300 text-gray-700 px-4 py-2 mr-3 rounded ml-2"
+            (click)="closeModal()">لغو</button>
+        </div>
+        <div *ngIf="previewUrl">
+          <img [src]="previewUrl" alt="پیش‌نمایش محصول"
+            class="w-32 h-32 object-cover border border-gray-300 rounded-md" />
+        </div>
+      </div>
+    </form>
+
+    <div *ngIf="isUploading" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-51">
+      <div class="bg-white p-6 rounded shadow-lg flex items-center">
+        <svg class="animate-spin h-6 w-6 text-blue-500 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none"
+          viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 2.42.895 4.63 2.372 6.291l1.628-1.5z">
+          </path>
+        </svg>
+        <span>در حال آپلود تصویر...</span>
+      </div>
+    </div>
+  </div>
+</div>

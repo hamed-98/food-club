@@ -1,0 +1,60 @@
+<section
+  class="relative bg-cover bg-center text-black h-[500px] flex items-center justify-center"
+  style="background-image: url('assets/images/flat-lay-copyspace.jpg');"
+>
+  <div class="bg-transparent p-8 rounded-lg text-center">
+    <h2 class="text-4xl font-Ojan font-bold mb-4"> به فود کلاب خوش آمدید</h2>
+    <p class="text-lg mb-6">تجربه‌ای متفاوت از طعم و مزه غذاهای متنوع</p>
+    <button class="bg-red-600 text-white px-4 py-3 text-center pb-4 rounded-md text-lg bn53" routerLink="/orders/new">سفارش دهید</button>
+  </div>
+</section>
+
+
+  <!-- بنر تبلیغاتی میانی -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12" data-aos="fade-up">
+    <div class="flex flex-col gap-2">
+      <a routerLink="/products/category/accessories"
+        class="relative flex items-center justify-start  h-40 rounded-lg overflow-hidden cursor-pointer card">
+        <div class="absolute inset-0 bg-cover bg-center"
+          style="background-image: url('assets/images/front-view-fresh-carrot-saealth.jpg');">
+        </div>
+        <p class="text-3xl text-stone-200 font-Ojan p-1 relative z-10">تجربه‌ای متفاوت از طعم و مزه غذاهای متنوع</p>
+      </a>
+      <a routerLink="/products/category/accessories"
+        class="relative flex items-center justify-start  h-40 rounded-lg overflow-hidden cursor-pointer card">
+        <div class="absolute inset-0 bg-cover bg-center"
+          style="background-image: url('assets/images/tasty-food-assortment-view.jpg');">
+        </div>
+        <p class="text-2xl font-bold pr-10 text-white relative z-10"></p>
+      </a>
+    </div>
+
+    <div class="text-white flex items-center justify-center h-[330px] rounded-lg" data-aos="fade-up">
+      <swiper-container class="h-[100%] w-[90%]" loop="true" navigation="true" pagination="true">
+        <swiper-slide>
+          <img src="assets/images/claolognese-sauce.jpg">
+        </swiper-slide>
+        <swiper-slide>
+          <img src="assets/images/pizza-with-omato-topping.jpg">
+        </swiper-slide>
+        <swiper-slide>
+          <img src="assets/images/d-tomatoes-goat-cheese-raisins-cherry-tomato.jpg">
+        </swiper-slide>
+      </swiper-container>
+    </div>
+  </div>
+
+  <div class="md:h-[500px] pb-1" data-aos="zoom-in-up">
+    <h2 class="text-center py-3 text-2xl font-Ojan ">فضای رستوران</h2>
+    <swiper-container class="md:h-[88%] px-4" loop="true" navigation="true" pagination="true">
+      <swiper-slide>
+        <img src="assets/images/people-meeting.jpg">
+      </swiper-slide>
+      <swiper-slide>
+        <img src="assets/images/waiter-using_166373-6625.jpg">
+      </swiper-slide>
+      <swiper-slide>
+        <img src="assets/images/group-frien.jpg">
+      </swiper-slide>
+    </swiper-container>
+  </div>
