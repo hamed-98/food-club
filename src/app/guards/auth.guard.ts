@@ -11,7 +11,6 @@ export class AuthGuard implements CanActivate {
   async canActivate(): Promise<boolean> {
     const user = await this.SupabaseService.getCurrentUser();
     if (user && user.role === 'admin') {
-      console.log('user', user);
       return true;
     }
     this.router.navigate(['']); // اگه ادمین نبود، به صفحه اصلی هدایت بشه
