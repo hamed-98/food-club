@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from '@supabase/supabase-js';
+import { AuthChangeEvent, Session, User } from '@supabase/supabase-js';
 import { supabase } from '../supabase-client';
 
 @Injectable({
@@ -66,7 +66,7 @@ export class AuthService {
   }
 
   async onAuthStateChange(callback: (user: User | null) => void) {
-    supabase.auth.onAuthStateChange((event, session) => {
+    supabase.auth.onAuthStateChange((event:AuthChangeEvent, session: Session | null) => {
       callback(session?.user || null);
     })
   }

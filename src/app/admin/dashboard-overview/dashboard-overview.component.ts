@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SupabaseService } from '../../services/supabase.service';
 import { CommonModule } from '@angular/common';
+import { Order } from '../../models/order.interface';
+
 
 
 @Component({
@@ -24,7 +26,7 @@ export class DashboardOverviewComponent implements OnInit {
     this.totalOrders = orders?.length || 0;
 
     // محاسبه درآمد کل
-    this.totalRevenue = orders?.reduce((sum, order) => sum + order.total_price, 0) || 0;
+    this.totalRevenue = orders?.reduce((sum:number, order:Order) => sum + order.total_price, 0) || 0;
 
     // گرفتن کاربران
     const users = await this.supabaseService.getData('users');
