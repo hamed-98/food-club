@@ -14,6 +14,6 @@ module.exports = {
       },
     },
   },
-  plugins: [require('tailwind-children'),],
+  plugins: [require('tailwind-children'),require('tailwindcss-primeui')],
 }
 

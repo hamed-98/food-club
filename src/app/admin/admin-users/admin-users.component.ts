@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { user } from '../../models/users.interface';
 import { SupabaseService } from '../../services/supabase.service';
 import { FormsModule } from '@angular/forms';
-import { supabase } from '../../supabase-client';
+
 
 @Component({
   selector: 'app-admin-users',
