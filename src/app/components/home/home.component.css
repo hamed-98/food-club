@@ -1,4 +1,11 @@
 
+.background {
+  background-image: url('/assets/images/collection-pasta-white-backdrop.jpg'); 
+  background-size: cover; 
+  background-repeat: no-repeat; 
+  background-position: center; 
+  background-attachment: fixed; 
+}
 
 .swiper-container {
   width: 100%;

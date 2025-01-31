@@ -1,4 +1,8 @@
-<section class="relative bg-cover bg-center text-black h-[500px] flex items-center justify-center"
+
+
+<div class="background">
+
+  <section class="relative bg-cover bg-center text-black h-[500px] flex items-center justify-center"
   style="background-image: url('assets/images/flat-lay-copyspace.jpg');">
   <div class="bg-transparent p-8 rounded-lg text-center">
     <h2 class="text-4xl font-Ojan font-bold mb-4"> به فود کلاب خوش آمدید</h2>
@@ -9,106 +13,110 @@
 </section>
 
 
-<!-- بنر تبلیغاتی میانی -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-9">
-  <div class="flex flex-col gap-2 pt-2">
+  <!-- بنر تبلیغاتی میانی -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-9">
+    <div class="flex flex-col gap-2 pt-2">
 
-    <a routerLink="/products/category/accessories"
-      class="relative flex items-center justify-start h-24 rounded-lg overflow-hidden cursor-pointer card">
-      <div class="absolute inset-0 bg-cover bg-center"
-        style="background-image: url('assets/images/front-view-fresh-carrot-saealth.jpg');">
+      <a routerLink="/products/category/accessories"
+        class="relative flex items-center justify-start h-24 rounded-lg overflow-hidden cursor-pointer card">
+        <div class="absolute inset-0 bg-cover bg-center"
+          style="background-image: url('assets/images/front-view-fresh-carrot-saealth.jpg');">
+        </div>
+        <p class="text-3xl text-stone-200 font-Ojan p-1 relative z-10">تجربه‌ای متفاوت از طعم و مزه غذاهای متنوع</p>
+      </a>
+
+      <div class="text-white flex items-center justify-center h-64 rounded-lg">
+        <swiper-container class="h-[100%] w-[100%]" loop="true" navigation="true" pagination="true">
+          <swiper-slide>
+            <img src="assets/images/claolognese-sauce.jpg">
+          </swiper-slide>
+          <swiper-slide>
+            <img src="assets/images/pizza-with-omato-topping.jpg">
+          </swiper-slide>
+          <swiper-slide>
+            <img src="assets/images/d-tomatoes-goat-cheese-raisins-cherry-tomato.jpg">
+          </swiper-slide>
+        </swiper-container>
       </div>
-      <p class="text-3xl text-stone-200 font-Ojan p-1 relative z-10">تجربه‌ای متفاوت از طعم و مزه غذاهای متنوع</p>
-    </a>
 
-    <div class="text-white flex items-center justify-center h-64 rounded-lg">
-      <swiper-container class="h-[100%] w-[100%]" loop="true" navigation="true" pagination="true">
-        <swiper-slide>
-          <img src="assets/images/claolognese-sauce.jpg">
-        </swiper-slide>
-        <swiper-slide>
-          <img src="assets/images/pizza-with-omato-topping.jpg">
-        </swiper-slide>
-        <swiper-slide>
-          <img src="assets/images/d-tomatoes-goat-cheese-raisins-cherry-tomato.jpg">
-        </swiper-slide>
-      </swiper-container>
     </div>
-
-  </div>
-  <div class="pt-2">
-    <h2 class="text-3xl text-center font-Ojan font-semibold text-gray-800 mb-4">محصولات ویژه</h2>
+    <div class="pt-2">
+      <h2 class="text-3xl text-center font-Ojan font-semibold text-gray-800 mb-4">محصولات ویژه</h2>
 
 
-    <div class="card">
-      <p-carousel [value]="products | slice:3:7" [numVisible]="1" [circular]="true" [autoplayInterval]="3000"
-        [numScroll]="1" orientation="vertical">
-        <ng-template pTemplate="item" let-product>
-          <div class="border border-gray-300 rounded-lg shadow-md pb-1 flex flex-col items-center bg-white">
-            <img [src]="product?.image" [alt]="product?.name" class="w-full h-36 object-cover rounded-lg mb-2">
-            <div class="pt-4 text-center space-y-2">
-              <h3 class="text-lg font-semibold text-gray-700">{{ product?.name }}</h3>
-              <!-- <p class="text-gray-600 text-sm mb-2">{{ product?.description | slice:0:24 }}...</p> -->
-              <p class="text-slate-700 text-base mb-1">
-                قیمت: {{ product?.price | currency:'تومان ':'symbol':'1.0-0' }}
-              </p>
-              <button class="" (click)="addToCart(product)" class="bg-rose-500 hover:bg-rose-600 text-white rounded-md">
-                <i class="pi pi-shopping-cart p-2 px-3"></i>
-              </button>
+      <div class="card">
+        <p-carousel [value]="products | slice:3:7" [numVisible]="1" [circular]="true" [autoplayInterval]="3000"
+          [numScroll]="1" orientation="vertical">
+          <ng-template pTemplate="item" let-product>
+            <div class="border border-gray-300 rounded-lg shadow-md pb-1 flex flex-col items-center bg-white">
+              <img [src]="product?.image" [alt]="product?.name" class="w-full h-36 object-cover rounded-lg mb-2">
+              <div class="pt-4 text-center space-y-2">
+                <h3 class="text-lg font-semibold text-gray-700">{{ product?.name }}</h3>
+                <!-- <p class="text-gray-600 text-sm mb-2">{{ product?.description | slice:0:24 }}...</p> -->
+                <p class="text-slate-700 text-base mb-1">
+                  قیمت: {{ product?.price | currency:'تومان ':'symbol':'1.0-0' }}
+                </p>
+                <button class="" (click)="addToCart(product)"
+                  class="bg-rose-500 hover:bg-rose-600 text-white rounded-md">
+                  <i class="pi pi-shopping-cart p-2 px-3"></i>
+                </button>
+              </div>
             </div>
-          </div>
-        </ng-template>
-      </p-carousel>
+          </ng-template>
+        </p-carousel>
+      </div>
     </div>
   </div>
-</div>
 
 
 
-<div
-  class="flex flex-col items-center justify-center gap-3 pr-5 overflow-x-auto py-4 bg-transparent bg-white text-white rounded-lg shadow mb-6"
-  style="background-image: url('assets/images/top-vieweggplant-avocado.jpg'); background-size: cover; background-position: center;">
-  <h2 class="font-Ojan text-2xl">محصولات</h2>
-  <div class="flex flex-row gap-3">
-    <div *ngFor="let category of categories"
-      class="flex items-center px-4 py-2 mt-2 border border-white rounded-lg cursor-pointer transition-all hover:text-black hover:bg-gray-100"
-      [class.bg-gray-400]="selectedCategory === category" [class.text-white]="selectedCategory === category"
-      (click)="filterByCategory(category)">
-      <button class="font-medium opacity-100">{{ category }}</button>
+  <div
+    class="flex flex-col items-center justify-center gap-3 pr-5 overflow-x-auto py-4 bg-transparent bg-white text-white rounded-lg shadow mb-6"
+    style="background-image: url('assets/images/top-vieweggplant-avocado.jpg'); background-size: cover; background-position: center;">
+    <h2 class="font-Ojan text-2xl">محصولات</h2>
+    <div class="flex flex-row gap-3">
+      <div *ngFor="let category of categories"
+        class="flex items-center px-4 py-2 mt-2 border border-white rounded-lg cursor-pointer transition-all hover:text-black hover:bg-gray-100"
+        [class.bg-gray-400]="selectedCategory === category" [class.text-white]="selectedCategory === category"
+        (click)="filterByCategory(category)">
+        <button class="font-medium opacity-100">{{ category }}</button>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="flex lg:grid lg:grid-cols-4 gap-6 mx-2 mt-6 overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide"
-  *ngIf="!isLoading && filteredProducts.length > 0" data-aos="zoom-in-down">
-  <div *ngFor="let product of filteredProducts | slice:0:4"
-    class="border border-gray-300 rounded-lg shadow-md p-1 flex flex-col gap-2 items-center bg-white card w-72 shrink-0">
-    <img [src]="product.image" [alt]="product.name" class="w-full h-40 object-cover rounded-lg mb-4">
-    <h3 class="text-lg font-semibold mb-2 text-gray-700">{{ product.name }}</h3>
-    <p class="text-gray-600 text-sm mb-4">{{ product.description | slice:0:24 }}...</p>
-    <p class="text-slate-700 font-bold text-lg mb-4">قیمت: {{ product.price | currency:'تومان ':'symbol':'1.0-0' }}</p>
-    <button (click)="addToCart(product)"
-      class="bg-rose-500 hover:bg-rose-600 text-white font-bold py-2 px-4 mb-2 rounded transition-all transform duration-200 ease-in-out">
-      افزودن به سبد خرید
-    </button>
+  <div
+    class="flex lg:grid lg:grid-cols-4 gap-6 mx-2 mt-6 overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide"
+    *ngIf="!isLoading && filteredProducts.length > 0" data-aos="zoom-in-down">
+    <div *ngFor="let product of filteredProducts | slice:0:4"
+      class="border border-gray-300 rounded-lg shadow-md p-1 flex flex-col gap-2 items-center bg-white card w-72 shrink-0">
+      <img [src]="product.image" [alt]="product.name" class="w-full h-40 object-cover rounded-lg mb-4">
+      <h3 class="text-lg font-semibold mb-2 text-gray-700">{{ product.name }}</h3>
+      <p class="text-gray-600 text-sm mb-4">{{ product.description | slice:0:24 }}...</p>
+      <p class="text-slate-700 font-bold text-lg mb-4">قیمت: {{ product.price | currency:'تومان ':'symbol':'1.0-0' }}
+      </p>
+      <button (click)="addToCart(product)"
+        class="bg-rose-500 hover:bg-rose-600 text-white font-bold py-2 px-4 mb-2 rounded transition-all transform duration-200 ease-in-out">
+        افزودن به سبد خرید
+      </button>
+    </div>
   </div>
+
+
+
+
+  <div class="md:h-[500px] pb-1" data-aos="zoom-in-up">
+    <h2 class="text-center py-3 text-2xl font-Ojan ">فضای رستوران</h2>
+    <swiper-container class="md:h-[88%] px-4" loop="true" navigation="true" pagination="true">
+      <swiper-slide>
+        <img src="assets/images/people-meeting.jpg">
+      </swiper-slide>
+      <swiper-slide>
+        <img src="assets/images/waiter-using_166373-6625.jpg">
+      </swiper-slide>
+      <swiper-slide>
+        <img src="assets/images/group-frien.jpg">
+      </swiper-slide>
+    </swiper-container>
+  </div>
+  <p-scrollTop class="" target="window" threshold="200" icon="pi pi-arrow-up"></p-scrollTop>
 </div>
-
-
-
-
-<div class="md:h-[500px] pb-1" data-aos="zoom-in-up">
-  <h2 class="text-center py-3 text-2xl font-Ojan ">فضای رستوران</h2>
-  <swiper-container class="md:h-[88%] px-4" loop="true" navigation="true" pagination="true">
-    <swiper-slide>
-      <img src="assets/images/people-meeting.jpg">
-    </swiper-slide>
-    <swiper-slide>
-      <img src="assets/images/waiter-using_166373-6625.jpg">
-    </swiper-slide>
-    <swiper-slide>
-      <img src="assets/images/group-frien.jpg">
-    </swiper-slide>
-  </swiper-container>
-</div>
-<p-scrollTop class="" target="window" threshold="200" icon="pi pi-arrow-up"></p-scrollTop>
