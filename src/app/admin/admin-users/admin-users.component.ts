@@ -3,18 +3,25 @@ import { Component, OnInit } from '@angular/core';
 import { user } from '../../models/users.interface';
 import { SupabaseService } from '../../services/supabase.service';
 import { FormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
+import { DropdownModule } from 'primeng/dropdown';
+import { ButtonModule } from 'primeng/button';
 
 
 @Component({
   selector: 'app-admin-users',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TableModule, DropdownModule, ButtonModule],
   templateUrl: './admin-users.component.html',
   styleUrl: './admin-users.component.css'
 })
 export class AdminUsersComponent implements OnInit {
   users: user[] = []
   isLoading = true;
+  roles = [
+    { label: 'کاربر', value: 'user' },
+    { label: 'ادمین', value: 'admin' }
+  ];
 
   constructor(private supabaseServise: SupabaseService) { }
 

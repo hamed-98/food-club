@@ -1,36 +1,38 @@
-<table class="min-w-full border border-gray-200 shadow">
-  <thead>
-    <tr class="bg-gray-200">
-      <th class="py-2 px-4 border">#</th>
-      <th class="py-2 px-4 border">نام</th>
-      <th class="py-2 px-4 border">ایمیل</th>
-      <th class="py-2 px-4 border">نقش</th>
-      <th class="py-2 px-4 border">عملیات</th>
+<p-table [value]="users" [paginator]="true" [rows]="5" [globalFilterFields]="['name', 'email']" responsiveLayout="scroll">
+  <!-- هدر جدول -->
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="id"># <p-sortIcon field="id"></p-sortIcon></th>
+      <th pSortableColumn="name">نام <p-sortIcon field="name"></p-sortIcon></th>
+      <th pSortableColumn="email">ایمیل <p-sortIcon field="email"></p-sortIcon></th>
+      <th>نقش</th>
+      <th>عملیات</th>
     </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of users; let i = index">
-      <td class="py-2 px-4 border">{{ i + 1 }}</td>
-      <td class="py-2 px-4 border">{{ user.name }}</td>
-      <td class="py-2 px-4 border">{{ user.email }}</td>
-      <td class="py-2 px-4 border">
-        <select 
+  </ng-template>
+
+  <!-- بدنه جدول -->
+  <ng-template pTemplate="body" let-user let-i="rowIndex">
+    <tr>
+      <td>{{ i + 1 }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+      <td>
+        <p-dropdown 
+          [options]="roles" 
           [(ngModel)]="user.role" 
-          (change)="updateUserRole(user)"
-          class="border rounded p-1"
-        >
-          <option value="user">کاربر</option>
-          <option value="admin">ادمین</option>
-        </select>
+          (onChange)="updateUserRole(user)"
+          appendTo="body"
+          placeholder="انتخاب نقش">
+          <ng-template let-role pTemplate="selectedItem">
+            <span [ngClass]="{'text-green-600': role.value === 'admin', 'text-blue-600': role.value === 'user'}">
+              {{ role.label }}
+            </span>
+          </ng-template>
+        </p-dropdown>
       </td>
-      <td class="py-2 px-4 border">
-        <button 
-          (click)="deleteUser(user.id)" 
-          class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-        >
-          حذف
-        </button>
+      <td>
+        <p-button icon="pi pi-trash" severity="danger" (click)="deleteUser(user.id)" label="حذف"></p-button>
       </td>
     </tr>
-  </tbody>
-</table>
+  </ng-template>
+</p-table>

@@ -1,53 +1,66 @@
 <div class="p-6 bg-white rounded-lg shadow-md">
   <h2 class="text-2xl font-bold mb-6 text-gray-800">مدیریت سفارشات</h2>
 
-  <!-- وضعیت فیلتر -->
-  <div class="mb-6">
-    <label for="statusFilter" class="block text-sm font-medium text-gray-700 mb-2">فیلتر وضعیت:</label>
-    <select id="statusFilter" [(ngModel)]="filterStatus" (change)="filterOrders()"
-      class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-      <option value="">همه</option>
-      <option value="pending">در انتظار</option>
-      <option value="processing">در حال پردازش</option>
-      <option value="completed">تکمیل شده</option>
-    </select>
+  <!-- فیلتر وضعیت -->
+  <div class="mb-6 flex items-center gap-4">
+    <label for="statusFilter" class="text-sm font-medium text-gray-700">فیلتر وضعیت:</label>
+    <p-dropdown 
+      id="statusFilter"
+      [options]="statusOptions"
+      [(ngModel)]="filterStatus"
+      placeholder="انتخاب وضعیت"
+      (onChange)="filterOrders()"
+      styleClass="w-full md:w-64">
+    </p-dropdown>
   </div>
 
   <!-- جدول سفارشات -->
-  <div class="overflow-auto py-6 w-full">
-    <div class="overflow-x-auto">
-      <table class="min-w-full divide-y divide-gray-200">
-        <thead class="bg-gray-100">
-          <tr>
-            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">کد سفارش</th>
-            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">مجموع قیمت</th>
-            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">وضعیت</th>
-            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">محصولات</th>
-            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">عملیات</th>
-          </tr>
-        </thead>
-        <tbody class="bg-white divide-y divide-gray-200">
-          <tr *ngFor="let order of filteredOrders" class="hover:bg-gray-50">
-            <td class="px-6 py-4 whitespace-nowrap">{{ order.id }}</td>
-            <td class="px-6 py-4 whitespace-nowrap">{{ order.total_price | currency:'تومان':'symbol':'1.0-0' }}</td>
-            <td class="px-6 py-4 whitespace-nowrap">{{ getStatusText(order.status) }}</td>
-            <td class="py-3 px-6 border border-gray-300 text-center">
-              <div class="max-h-16 overflow-y-auto">
-                <ul class="list-inside text-right">
-                  <li *ngFor="let product of order.products">{{ product.name }},</li>
-                </ul>
-              </div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <select [(ngModel)]="order.status" (change)="updateOrderStatus(order)"
-                class="block w-full px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="pending">انتظار</option>
-                <option value="processing">پردازش</option>
-                <option value="completed">تکمیل</option>
-              </select>
-            </td>
-          </tr>
-      </table>
-    </div>
-  </div>
+  <p-table [value]="filteredOrders" [paginator]="true" [rows]="5" [loading]="isLoading" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>کد سفارش</th>
+        <th>مجموع قیمت</th>
+        <th>وضعیت</th>
+        <th>محصولات</th>
+        <th>عملیات</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-order>
+      <tr>
+        <td>{{ order.id }}</td>
+        <td>{{ order.total_price | currency:'تومان':'symbol':'1.0-0' }}</td>
+
+        <!-- نمایش وضعیت سفارش -->
+        <td>
+          <span class="px-2 py-1 rounded text-sm"
+            [ngClass]="{
+              'text-red-500': order.status === 'pending',
+              'text-yellow-500': order.status === 'processing',
+              'text-green-500': order.status === 'completed'
+            }">
+            {{ getStatusText(order.status) }}
+          </span>
+        </td>
+
+        <!-- لیست محصولات -->
+        <td>
+          <ul class="list-disc list-inside text-sm max-h-9 overflow-y-auto">
+            <li *ngFor="let product of order.products">{{ product.name }}</li>
+          </ul>
+        </td>
+
+        <!-- تغییر وضعیت سفارش -->
+        <td>
+          <p-dropdown 
+            [options]="statusOptions"
+            [(ngModel)]="order.status"
+            appendTo="body"
+            (onChange)="updateOrderStatus(order)"
+            styleClass="w-full">
+          </p-dropdown>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>
