@@ -17,7 +17,7 @@
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-9">
     <div class="flex flex-col gap-2 pt-2">
 
-      <a routerLink="/products/category/accessories"
+      <a
         class="relative flex items-center justify-start h-24 rounded-lg overflow-hidden cursor-pointer card">
         <div class="absolute inset-0 bg-cover bg-center"
           style="background-image: url('assets/images/front-view-fresh-carrot-saealth.jpg');">
@@ -71,10 +71,10 @@
 
 
   <div
-    class="flex flex-col items-center justify-center gap-3 pr-5 overflow-x-auto py-4 bg-transparent bg-white text-white rounded-lg shadow mb-6"
+    class="flex flex-col gap-3 pr-5 py-4 bg-transparent bg-white text-white rounded-lg shadow mb-6"
     style="background-image: url('assets/images/top-vieweggplant-avocado.jpg'); background-size: cover; background-position: center;">
-    <h2 class="font-Ojan text-2xl">محصولات</h2>
-    <div class="flex flex-row gap-3">
+    <h2 class="font-Ojan text-center text-2xl">محصولات</h2>
+    <div class="flex overflow-scroll flex-row gap-3">
       <div *ngFor="let category of categories"
         class="flex items-center px-4 py-2 mt-2 border border-white rounded-lg cursor-pointer transition-all hover:text-black hover:bg-gray-100"
         [class.bg-gray-400]="selectedCategory === category" [class.text-white]="selectedCategory === category"
