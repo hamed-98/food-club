@@ -30,4 +30,8 @@ export class AdminDashboardComponent {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
 
+  closeSidbar() {
+    this.isSidebarOpen = false;
+  }
+
 }
