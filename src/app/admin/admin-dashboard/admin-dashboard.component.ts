@@ -34,4 +34,11 @@ export class AdminDashboardComponent {
     this.isSidebarOpen = false;
   }
 
+  handleClick() {
+    if (window.innerWidth < 768) { // موبایل
+      this.closeSidbar();
+    }
+  }
+  
+
 }
