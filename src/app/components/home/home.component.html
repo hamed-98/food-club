@@ -71,10 +71,10 @@
 
 
   <div
-    class="flex flex-col gap-3 pr-5 py-4 bg-transparent bg-white text-white rounded-lg shadow mb-6"
+    class="flex flex-col gap-3 pr-6 py-4 bg-transparent bg-white text-white rounded-lg shadow mb-6"
     style="background-image: url('assets/images/top-vieweggplant-avocado.jpg'); background-size: cover; background-position: center;">
     <h2 class="font-Ojan text-center text-2xl">محصولات</h2>
-    <div class="flex overflow-scroll flex-row gap-3">
+    <div class="flex overflow-y-auto flex-row gap-3">
       <div *ngFor="let category of categories"
         class="flex items-center px-4 py-2 mt-2 border border-white rounded-lg cursor-pointer transition-all hover:text-black hover:bg-gray-100"
         [class.bg-gray-400]="selectedCategory === category" [class.text-white]="selectedCategory === category"
