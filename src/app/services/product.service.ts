@@ -18,17 +18,6 @@ export class ProductService {
     }
   }
 
-  // async getProductById(productId: number) {
-  //   try {
-  //     const { data, error } = await this.supabaseService.getDataById('products', productId);
-  //     if (error) throw error;
-  //     return data ? data[0] : null;
-  //   } catch (error) {
-  //     console.error('Error fetching product by ID:', error);
-  //     return null;
-  //   }
-  // }
-
   async getProductById(productId: number) {
     try {
       const data = await this.supabaseService.getDataById('products', productId);

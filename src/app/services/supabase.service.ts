@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { supabase, supabaseAdmin } from '../supabase-client';
+import { Observable, of } from 'rxjs';
+import { Product } from '../models/product.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -136,6 +138,26 @@ export class SupabaseService {
       throw err;
     }
   }
-  
 
+  searchProducts(query: string): Observable<Product[]> {
+    if (!query.trim()) {
+      return of([]); // اگر جستجو خالی بود، نتایج خالی ارسال می‌کنیم
+    }
+
+    return new Observable((observer) => {
+      supabase
+        .from('products')
+        .select('*')
+        .ilike('name', `%${query}%`) // جستجوی نادقیق بر اساس نام محصول
+        .then(({ data, error }) => {
+          if (error) {
+            observer.error(error);
+          } else {
+            observer.next(data); // ارسال نتایج به اشتراک‌گذاری
+          }
+        });
+    });
+  }
+
+  
 }

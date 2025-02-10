@@ -1,0 +1,37 @@
+
+<div>
+  <input 
+    #searchInput 
+    pInputText 
+    type="text" 
+    [(ngModel)]="searchQuery" 
+    placeholder="جستجو..." 
+    (keydown)="onSearch($event)" 
+  />
+  
+  <p-dialog 
+    [(visible)]="dialogVisible" 
+    [modal]="false" 
+    header="نتایج جستجو" 
+    (onShow)="keepFocus()"
+    (onHide)="clearSearch()"
+  >
+    <p-listbox [options]="results()" optionLabel="name">
+      <ng-template let-product pTemplate="item">
+        <div class="flex items-center gap-3 justify-between cursor-default w-full">
+          <div class="flex items-center gap-3">
+            <img 
+              [src]="product.image" 
+              alt="Product Image" 
+              class="w-10 h-10 object-cover rounded-md"
+            />
+            <span>{{ product.name }}</span>
+          </div>
+          <div>
+            <button (click)="addToCart(product)"><i class="text-red-600 text-2xl bi bi-cart"></i></button>
+          </div>
+        </div>
+      </ng-template>
+    </p-listbox>
+  </p-dialog>
+</div>

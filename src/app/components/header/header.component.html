@@ -11,6 +11,9 @@
         <button
             class="bg-red-500 text-white px-2 py-2 bn5 rounded-md hover:bg-red-600 transition-colors hidden lg:block"
             routerLink="/orders/new" (click)="clesemenu()">سفارش دهید</button>
+            <div>
+                <app-search></app-search>
+            </div>
         <div class="flex gap-2 pt-2 cursor-pointer" *ngIf="!isLoggedIn; else loggedIn">
             <a class="hover:underline" (click)="clesemenu()" routerLink="/signin">ورود</a>
             <a class="hover:underline" (click)="clesemenu()" routerLink="/signup">ثبت‌نام</a>
