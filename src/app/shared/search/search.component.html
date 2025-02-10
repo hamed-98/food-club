@@ -6,7 +6,8 @@
     type="text" 
     [(ngModel)]="searchQuery" 
     placeholder="جستجو..." 
-    (keydown)="onSearch($event)" 
+    (keydown)="onSearch($event)"
+    class="w-28 md:w-auto" 
   />
   
   <p-dialog 
