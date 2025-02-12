@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, computed, effect, ElementRef, EventEmitter, Output, signal, ViewChild } from '@angular/core';
+import { Component, ElementRef, signal, ViewChild } from '@angular/core';
 import { Product } from '../../models/product.interface';
 import { debounceTime, distinctUntilChanged, of, switchMap, Subject, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -40,7 +40,7 @@ export class SearchComponent {
     this.searchStream
     .pipe(
       debounceTime(500),
-      
+      distinctUntilChanged(),
       switchMap((query: string) => query.trim() ? this.SupabaseService.searchProducts(query) : of([]))
     )
     .subscribe((products: Product[]) => {
@@ -64,10 +64,10 @@ export class SearchComponent {
         this.keepFocus();
       }
     }, 100);
+
+    // this.keepFocus();
   }
   
-
-
   onSearch(event: Event) {
     this.searchQuery.set((event.target as HTMLInputElement).value);
     this.searchStream.next(this.searchQuery());
@@ -96,57 +96,5 @@ export class SearchComponent {
       this.routeSubscription.unsubscribe()
     }
   }
-
-  // onSearch() {
-  //   if (!this.searchQuery.trim()) {
-  //     this.results.set([]);
-  //     return;
-  //   }
-  //   of(this.searchQuery)
-  //     .pipe(
-  //       debounceTime(400),
-  //       distinctUntilChanged(),
-  //       switchMap(query => this.SupabaseService.searchProducts(query))
-  //     )
-  //     .subscribe(products => {
-  //       this.results.set(products);
-  //       this.dialogVisible.set(true);
-  //     });
-  // }
-
-
-
-    // // Signal برای ذخیره مقدار جستجو
-    // searchQuery = signal<string>('');
-
-    // // Computed برای اجرای debounceTime و تغییرات فیلترشده
-    // filteredQuery = computed(() => this.searchQuery());
-  
-    // // Observable برای دریافت نتایج جستجو
-    // @Output() searchResults = new EventEmitter<Product[]>(); // ارسال نتایج جستجو
-  
-    // constructor(private supabaseService:SupabaseService) {
-    //   // استفاده از effect برای مدیریت Observable و تبدیل مقدار سیگنال به استریم RxJS
-    //   effect(() => {
-    //     const query = this.filteredQuery();
-  
-    //     if (!query.trim()) {
-    //       this.searchResults.emit([]);
-    //       return;
-    //     }
-  
-    //     of(query)
-    //       .pipe(
-    //         debounceTime(300),
-    //         distinctUntilChanged(),
-    //         switchMap((term) => this.supabaseService.searchProducts(term))
-    //       )
-    //       .subscribe((results) => this.searchResults.emit(results));
-    //   });
-    // }
-  
-    // onSearch(query: string): void {
-    //   this.searchQuery.set(query); // مقدار جستجو را به‌روز می‌کنیم
-    // }
 
 }
