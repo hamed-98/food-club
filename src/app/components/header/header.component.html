@@ -14,9 +14,9 @@
             <div>
                 <app-search></app-search>
             </div>
-        <div class="flex gap-1 pt-1 cursor-pointer" *ngIf="!isLoggedIn; else loggedIn">
-            <a class="hover:underline" (click)="clesemenu()" routerLink="/signin">ورود</a>
-            <a class="hover:underline" (click)="clesemenu()" routerLink="/signup">ثبت‌نام</a>
+        <div class="flex gap-1 cursor-pointer" *ngIf="!isLoggedIn; else loggedIn">
+            <a class="hover:text-red-500 transition-colors" (click)="clesemenu()" routerLink="/signup"><i
+                class="!text-2xl pi pi-sign-in"></i></a>
         </div>
         <div class="flex items-center">
             <ng-template #loggedIn>
