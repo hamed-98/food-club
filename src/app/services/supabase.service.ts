@@ -115,8 +115,6 @@ export class SupabaseService {
     const publicUrl = supabase.storage
       .from('product-images')
       .getPublicUrl(filePath).data.publicUrl;
-
-
     return publicUrl; // بازگشت لینک عمومی
   }
 
@@ -148,7 +146,7 @@ export class SupabaseService {
       supabase
         .from('products')
         .select('*')
-        .ilike('name', `%${query}%`) // جستجوی نادقیق بر اساس نام محصول
+        .ilike('name', `%${query}%`) // جستجوی بر اساس نام محصول
         .then(({ data, error }) => {
           if (error) {
             observer.error(error);

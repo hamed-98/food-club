@@ -70,7 +70,6 @@ export class AdminProductsComponent implements OnInit {
   // Reset the form
   resetForm() {
     this.newProduct = {
-      id: 0,
       name: '',
       description: '',
       price: 0,
